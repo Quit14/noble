@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Main {
@@ -11,7 +12,16 @@ public class Main {
         famousPeople.add(new Person("Jose Gabriel", "Condorcanqui Noguera", 43));
         famousPeople.add(new Person("Otto Eduard Leopold", "von Bismarck Schonhausen", 83));
 
-        famousPeople.sort(new PersonsNameAndAgeComparator(4));
+        Comparator<Person> comparator = (p1, p2) -> {
+            int nLength_o1 = p1.getSurname().split(" ").length;
+            int nLength_o2 = p2.getSurname().split(" ").length;
+            if(nLength_o1 > 4 && nLength_o2 > 4 || nLength_o1 == nLength_o2) {
+                return Integer.compare(p1.getAge(), p2.getAge());
+            }
+            return Integer.compare(nLength_o1, nLength_o2);
+        };
+
+        famousPeople.sort(comparator);
         System.out.println(famousPeople);
     }
 }
